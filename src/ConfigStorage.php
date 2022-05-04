@@ -4,11 +4,16 @@ namespace PhpConfig;
 
 class ConfigStorage
 {
+	protected ConfigProvider $provider;
 	protected array $data = [];
 
-	public function __construct(array $data)
+	public function __construct(ConfigProvider $provider)
 	{
-		$this->data = $data;
+		$this->provider = $provider;
+		foreach ($provider->getPaths() as $name => $path)
+		{
+			$this->data[$name] = include $path;
+		}
 	}
 
 	/**
@@ -18,7 +23,12 @@ class ConfigStorage
 	 */
 	public function get(string $key, $default = null)
 	{
-		return $this->find($this->data, explode(".", $key, $default));
+		return $this->find($this->data, explode(".", $key), $default);
+	}
+
+	public function getProvider(): ConfigProvider
+	{
+		return $this->provider;
 	}
 
 	/**
@@ -36,6 +46,6 @@ class ConfigStorage
 			else
 				return $array[$segments[0]];
 		}
-		return is_callable($default) ? $default() : $default;
+		return is_callable($default) ? $default($this->data) : $default;
 	}
 }
