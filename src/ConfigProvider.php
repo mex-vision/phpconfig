@@ -27,7 +27,6 @@ class ConfigProvider
 		{
 			if(strpos($file, $this->suffix . '.php') === false)
 				continue;
-
 			$name = str_replace($this->suffix . '.php', '', $file);
 			$this->configPaths[$name] = $this->configDir . $file;
 		}
