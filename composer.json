@@ -1,0 +1,17 @@
+{
+    "name": "mex-vision/phpconfig",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "PhpConfig\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mex-vision",
+            "email": "mex.vision.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
