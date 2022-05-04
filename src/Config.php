@@ -21,7 +21,6 @@ class Config
 	{
 		if(array_key_exists($name, $this->storages))
 			throw new InvalidProviderNameException("Provider name [$name] is already exist!");
-
 		$this->storages[$name] = $this->getConfigStorage($provider);
 	}
 
