@@ -12,7 +12,7 @@ class ConfigProvider
 
 	protected array     $configPaths = [];
 
-	public function __construct(string $configDir, string $suffix = '.config')
+	public function __construct(string $configDir, string $suffix = '')
 	{
 		$this->configDir = trim($configDir, '\/') . '/';
 		$this->suffix = $suffix;
@@ -35,6 +35,13 @@ class ConfigProvider
 	public function getPaths(): array
 	{
 		return $this->configPaths;
+	}
+
+	public function getPath(string $name): ?string
+	{
+		if(array_key_exists($name, $this->configPaths))
+			return $this->configPaths[$name];
+		return null;
 	}
 
 	public function getConfigDir(): string
