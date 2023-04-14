@@ -64,10 +64,14 @@ class ConfigStorage
 		if(is_null($name) or $name == '')
 		{
 			foreach ($this->data as $name => $content)
+			{
+				if(!is_array($content))
+					$content = [];
 				file_put_contents(
 					$this->provider->getPath($name),
 					"<?php\n\n" . $this->getCommentForSave() . "return " . $this->arrayExport($content, $beautify) . ";"
 				);
+			}
 			return true;
 		}
 		if(array_key_exists($name, $this->data))
