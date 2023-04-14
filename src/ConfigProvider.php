@@ -44,6 +44,11 @@ class ConfigProvider
 		return null;
 	}
 
+	public function compilePath(string $name): string
+	{
+		return $this->configDir . $name . $this->suffix . '.php';
+	}
+
 	public function getConfigDir(): string
 	{
 		return $this->configDir;

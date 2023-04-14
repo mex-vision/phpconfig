@@ -63,26 +63,17 @@ class ConfigStorage
 	{
 		if(is_null($name) or $name == '')
 		{
-			foreach ($this->data as $name => $content)
-			{
-				if(!is_array($content))
-					$content = [];
+			foreach ($this->data as $filename => $content)
 				file_put_contents(
-					$this->provider->getPath($name),
+					$this->provider->compilePath($filename),
 					"<?php\n\n" . $this->getCommentForSave() . "return " . $this->arrayExport($content, $beautify) . ";"
 				);
-			}
 			return true;
 		}
 		if(array_key_exists($name, $this->data))
 		{
-			$path = $this->provider->getPath($name);
-
-			if(is_null($path))
-				$path = $this->provider->getConfigDir() . $name . $this->provider->getSuffix() . '.php';
-
 			file_put_contents(
-				$path,
+				$this->provider->compilePath($name),
 				"<?php\n\n" . $this->getCommentForSave() . "return " . $this->arrayExport($this->data[$name], $beautify) . ";"
 			);
 			return true;
